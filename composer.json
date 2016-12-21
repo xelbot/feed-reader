@@ -1,8 +1,19 @@
 {
-    "name": "symfony/framework-standard-edition",
+    "name": "xelbot/feed-reader",
     "license": "MIT",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "description": "Feed Reader is a platform for you to read and organize news and updates from all websites",
+    "authors": [
+        {
+            "name": "Igor Chepurnoy",
+            "email": "igorzfort@gmail.com"
+        },
+        {
+            "name": "Alexander Harchenko",
+            "email": "morontt@gmail.com",
+            "homepage": "https://morontt.info"
+        }
+    ],
     "autoload": {
         "psr-4": { "": "src/" },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
@@ -12,6 +23,7 @@
     },
     "require": {
         "php": ">=5.5.9",
+        "ext-pdo_pgsql": "*",
         "symfony/symfony": "3.2.*",
         "doctrine/orm": "^2.5",
         "doctrine/doctrine-bundle": "^1.6",
@@ -43,18 +55,15 @@
             "@symfony-scripts"
         ]
     },
-    "config": {
-        "platform": {
-            "php": "5.5.9"
-        }
-    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "extra": {
         "symfony-app-dir": "app",
         "symfony-bin-dir": "bin",
         "symfony-var-dir": "var",
         "symfony-web-dir": "web",
         "symfony-tests-dir": "tests",
-        "symfony-assets-install": "relative",
+        "symfony-assets-install": "symlink",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         },
