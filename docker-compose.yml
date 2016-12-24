@@ -1,0 +1,22 @@
+version: '2'
+services:
+    marmoset:
+        build: ./data/docker/db
+        volumes:
+            - ./var/db_data:/var/lib/postgresql/data
+        environment:
+            POSTGRES_PASSWORD: docker
+            POSTGRES_USER: freader
+            POSTGRES_DB: freader
+            PGDATA: /var/lib/postgresql/data/pgdata
+
+    octopus:
+        build: ./data/docker/web
+        volumes:
+            - .:/var/www/html
+        ports:
+            - "80:80"
+        links:
+            - marmoset
+        depends_on:
+            - marmoset
