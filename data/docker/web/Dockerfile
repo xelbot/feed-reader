@@ -17,7 +17,7 @@ RUN apt-get install -y \
     git nano zip \
     nodejs
 
-RUN docker-php-ext-install intl zip pgsql pdo_pgsql
+RUN docker-php-ext-install intl zip pgsql pdo_pgsql opcache
 
 RUN npm install -g bower uglifycss uglify-js
 
