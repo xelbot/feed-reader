@@ -1,5 +1,7 @@
 umask 002
 
+export TERM=xterm
+
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
@@ -12,7 +14,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 alias ll='ls -ahl'
-alias ownr='chown -R www-data:www-data var/cache var/logs src vendor'
+alias ownr='chown -R www-data:www-data var/cache var/logs src vendor web'
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
