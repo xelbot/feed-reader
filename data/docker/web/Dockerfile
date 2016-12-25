@@ -38,5 +38,10 @@ RUN set -x && curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
 
 RUN usermod -u 1000 www-data
+RUN groupmod -g 1000 www-data
+
+RUN chsh -s /bin/bash www-data
+RUN cp /root/.bashrc /var/www
+RUN cp /root/.bash_aliases /var/www
 
 EXPOSE 80
