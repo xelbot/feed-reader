@@ -20,3 +20,15 @@ services:
             - marmoset
         depends_on:
             - marmoset
+
+    kangaroo:
+        build: ./data/docker/dbadmin
+        ports:
+            - "8090:80"
+        links:
+            - marmoset
+        depends_on:
+            - marmoset
+        environment:
+            POSTGRES_HOST: marmoset
+            POSTGRES_DEFAULTDB: freader
