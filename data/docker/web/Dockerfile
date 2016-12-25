@@ -32,6 +32,7 @@ RUN echo "LogFormat \"%a %l %u %t \\\"%r\\\" %>s %O \\\"%{User-Agent}i\\\"\" mai
 RUN a2enmod rewrite remoteip
 
 RUN curl -sS -o /root/.bash_aliases https://raw.githubusercontent.com/morontt/dotfiles/master/ubuntu/.bash_aliases
+RUN sed -i "s/php app\/console/php bin\/console/g" /root/.bash_aliases
 
 RUN set -x && curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
