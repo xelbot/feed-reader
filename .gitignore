@@ -15,3 +15,4 @@
 !var/db_data/.gitkeep
 /vendor/
 /web/bundles/
+/.env

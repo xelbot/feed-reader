@@ -2,6 +2,8 @@ FROM php:7.1-apache
 
 MAINTAINER Alexander Harchenko <morontt@gmail.com>
 
+ARG HOST_UID=1000
+
 VOLUME ["/var/www/html"]
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -37,8 +39,8 @@ RUN sed -i "s/php app\/console/php bin\/console/g" /root/.bash_aliases
 RUN set -x && curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
 
-RUN usermod -u 1000 www-data
-RUN groupmod -g 1000 www-data
+RUN usermod -u ${HOST_UID} www-data
+RUN groupmod -g ${HOST_UID} www-data
 
 RUN chsh -s /bin/bash www-data
 RUN cp /root/.bashrc /var/www

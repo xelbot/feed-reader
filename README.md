@@ -12,6 +12,7 @@ Feed Reader is a platform for you to read and organize news and updates from all
 
 #### Install
 
+    cp .env.dist .env
     docker-compose up --build
 
 #### Install vendors, build app, etc.

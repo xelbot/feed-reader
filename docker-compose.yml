@@ -1,7 +1,10 @@
 version: '2'
 services:
     marmoset:
-        build: ./data/docker/db
+        build:
+            context: ./data/docker/db
+            args:
+                HOST_UID: ${HOST_UID}
         volumes:
             - ./var/db_data:/var/lib/postgresql/data
         environment:
@@ -11,7 +14,10 @@ services:
             PGDATA: /var/lib/postgresql/data/pgdata
 
     octopus:
-        build: ./data/docker/web
+        build:
+            context: ./data/docker/web
+            args:
+                HOST_UID: ${HOST_UID}
         volumes:
             - .:/var/www/html
         ports:
