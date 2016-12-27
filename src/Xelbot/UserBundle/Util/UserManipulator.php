@@ -37,10 +37,10 @@ class UserManipulator
     public function create($email, $username, $password, $active)
     {
         $user = $this->userManager->createUser();
-        $user->setEmail($email);
-        $user->setUsername($username);
-        $user->setPlainPassword($password);
-        $user->setEnabled($active);
+        $user->setEmail($email)
+            ->setUsername($username)
+            ->setPlainPassword($password)
+            ->setEnabled($active);
         $this->userManager->updateUser($user);
 
         return $user;

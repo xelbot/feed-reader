@@ -2,6 +2,7 @@
 
 namespace Xelbot\UserBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -57,7 +58,7 @@ class User implements AdvancedUserInterface, \Serializable
     protected $password;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="last_login", type="datetime", nullable=true)
      */
@@ -71,7 +72,7 @@ class User implements AdvancedUserInterface, \Serializable
     protected $confirmationToken;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="password_requested_at", type="datetime", nullable=true)
      */
@@ -83,11 +84,11 @@ class User implements AdvancedUserInterface, \Serializable
     protected $roles;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
-    protected $created_at;
+    protected $createdAt;
 
     /**
      * User constructor.
@@ -96,13 +97,13 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->enabled = false;
         $this->roles = [];
-        $this->created_at = new \DateTime();
+        $this->createdAt = new DateTime();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function serialize()
+    public function serialize(): string
     {
         return serialize([
             $this->id,
@@ -118,13 +119,13 @@ class User implements AdvancedUserInterface, \Serializable
      */
     public function unserialize($serialized)
     {
-        list(
+        [
             $this->id,
             $this->email,
             $this->username,
             $this->enabled,
             $this->password,
-            ) = unserialize($serialized);
+        ] = unserialize($serialized);
     }
 
     /**
@@ -178,7 +179,7 @@ class User implements AdvancedUserInterface, \Serializable
      *
      * @return string
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -236,7 +237,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Set lastLogin
      *
-     * @param \DateTime $lastLogin
+     * @param DateTime $lastLogin
      *
      * @return User
      */
@@ -250,9 +251,9 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Get lastLogin
      *
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getLastLogin(): \DateTime
+    public function getLastLogin(): ?DateTime
     {
         return $this->lastLogin;
     }
@@ -276,7 +277,7 @@ class User implements AdvancedUserInterface, \Serializable
      *
      * @return string
      */
-    public function getConfirmationToken(): string
+    public function getConfirmationToken(): ?string
     {
         return $this->confirmationToken;
     }
@@ -284,7 +285,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Set passwordRequestedAt
      *
-     * @param \DateTime $passwordRequestedAt
+     * @param DateTime $passwordRequestedAt
      *
      * @return User
      */
@@ -298,9 +299,9 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Get passwordRequestedAt
      *
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getPasswordRequestedAt(): \DateTime
+    public function getPasswordRequestedAt(): ?DateTime
     {
         return $this->passwordRequestedAt;
     }
@@ -430,13 +431,13 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
+     * @param DateTime $createdAt
      *
      * @return User
      */
     public function setCreatedAt($createdAt)
     {
-        $this->created_at = $createdAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -444,10 +445,10 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Get createdAt
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 }
