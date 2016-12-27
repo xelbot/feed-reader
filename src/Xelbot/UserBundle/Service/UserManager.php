@@ -15,11 +15,6 @@ class UserManager
     protected $objectManager;
 
     /**
-     * @var string
-     */
-    protected $class;
-
-    /**
      * @var UserRepository
      */
     protected $repository;
@@ -42,9 +37,6 @@ class UserManager
         $this->objectManager = $om;
         $this->encoderFactory = $encoderFactory;
         $this->repository = $om->getRepository('UserBundle:User');
-
-        $metadata = $om->getClassMetadata('UserBundle:User');
-        $this->class = $metadata->getName();
     }
 
     /**
@@ -54,7 +46,7 @@ class UserManager
      */
     public function createUser(): User
     {
-        $user = new $this->class();
+        $user = new User();
 
         return $user;
     }
