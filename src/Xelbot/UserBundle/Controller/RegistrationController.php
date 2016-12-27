@@ -7,12 +7,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Xelbot\UserBundle\Event\FormEvent;
 use Xelbot\UserBundle\Form\RegistrationFormType;
+use Xelbot\UserBundle\UserEvents;
 
 class RegistrationController extends Controller
 {
     /**
-     * @Route("/register", name="user_registration")
+     * @Route("/register")
      *
      * @param Request $request
      *
@@ -21,13 +24,16 @@ class RegistrationController extends Controller
     public function registerAction(Request $request)
     {
         $userManager = $this->get('xelbot.user.service.user_manager');
+        $dispatcher = $this->get('event_dispatcher');
         $user = $userManager->createUser();
-        $user->setEnabled(true);
         $form = $this->createForm(RegistrationFormType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $event = new FormEvent($form, $request);
+            $dispatcher->dispatch(UserEvents::REGISTRATION_SUCCESS, $event);
+
             $userManager->updateUser($user);
 
             return $this->redirectToRoute('homepage');
@@ -36,5 +42,29 @@ class RegistrationController extends Controller
         return $this->render('UserBundle:Registration:register.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/confirm/{token}", name="registration_confirm")
+     *
+     * @param string $token
+     *
+     * @return RedirectResponse
+     */
+    public function confirmAction($token)
+    {
+        $userManager = $this->get('xelbot.user.service.user_manager');
+        $user = $userManager->findUserByConfirmationToken($token);
+
+        if (empty($user)) {
+            throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
+        }
+
+        $user->setConfirmationToken(null);
+        $user->setEnabled(true);
+
+        $userManager->updateUser($user);
+
+        return $this->redirectToRoute('homepage');
     }
 }

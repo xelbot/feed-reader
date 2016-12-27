@@ -3,9 +3,9 @@
 namespace Xelbot\UserBundle\Service;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Xelbot\UserBundle\Entity\Repository\UserRepository;
 use Xelbot\UserBundle\Entity\User;
-use Xelbot\UserBundle\Util\PasswordUpdater;
 
 class UserManager
 {
@@ -25,20 +25,22 @@ class UserManager
     protected $repository;
 
     /**
-     * @var PasswordUpdater
+     * @var EncoderFactoryInterface
      */
-    protected $passwordUpdater;
+    protected $encoderFactory;
 
     /**
      * UserManager Constructor.
      *
-     * @param PasswordUpdater $passwordUpdater
      * @param ObjectManager $om
+     * @param EncoderFactoryInterface $encoderFactory
+     *
+     * @internal param PasswordUpdater $passwordUpdater
      */
-    public function __construct(PasswordUpdater $passwordUpdater, ObjectManager $om)
+    public function __construct(ObjectManager $om, EncoderFactoryInterface $encoderFactory)
     {
-        $this->passwordUpdater = $passwordUpdater;
         $this->objectManager = $om;
+        $this->encoderFactory = $encoderFactory;
         $this->repository = $om->getRepository('UserBundle:User');
 
         $metadata = $om->getClassMetadata('UserBundle:User');
@@ -50,7 +52,7 @@ class UserManager
      *
      * @return User
      */
-    public function createUser()
+    public function createUser(): User
     {
         $user = new $this->class();
 
@@ -63,7 +65,7 @@ class UserManager
      * @param User $user
      * @param bool $andFlush
      */
-    public function updateUser(User $user, $andFlush = true)
+    public function updateUser(User $user, $andFlush = true): void
     {
         $this->updatePassword($user);
 
@@ -78,9 +80,19 @@ class UserManager
      *
      * @param User $user
      */
-    public function updatePassword(User $user)
+    public function updatePassword(User $user): void
     {
-        $this->passwordUpdater->hashPassword($user);
+        $plainPassword = $user->getPlainPassword();
+
+        if (strlen($plainPassword) === 0) {
+            return;
+        }
+
+        $encoder = $this->encoderFactory->getEncoder($user);
+
+        $hashedPassword = $encoder->encodePassword($plainPassword, $user->getSalt());
+        $user->setPassword($hashedPassword);
+        $user->eraseCredentials();
     }
 
     /**
@@ -88,7 +100,7 @@ class UserManager
      *
      * @param User $user
      */
-    public function deleteUser(User $user)
+    public function deleteUser(User $user): void
     {
         $this->objectManager->remove($user);
         $this->objectManager->flush();
@@ -99,7 +111,7 @@ class UserManager
      *
      * @return \Traversable
      */
-    public function findUsers()
+    public function findUsers(): \Traversable
     {
         return $this->repository->findAll();
     }
@@ -109,10 +121,34 @@ class UserManager
      *
      * @param string $username
      *
-     * @return User or null if user does not exist
+     * @return User|null
      */
-    public function findUserByUserName($username)
+    public function findUserByUserName($username): ?User
     {
-        return $this->repository->findUserByUserName($username);
+        return $this->findUserBy(['username' => $username]);
+    }
+
+    /**
+     * Finds a user by its confirmationToken.
+     *
+     * @param string $token
+     *
+     * @return User|null
+     */
+    public function findUserByConfirmationToken($token): ?User
+    {
+        return $this->findUserBy(['confirmationToken' => $token]);
+    }
+
+    /**
+     * Finds one user by the given criteria.
+     *
+     * @param array $criteria
+     *
+     * @return User|null
+     */
+    public function findUserBy(array $criteria): ?User
+    {
+        return $this->repository->findOneBy($criteria);
     }
 }

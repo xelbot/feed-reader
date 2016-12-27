@@ -10,11 +10,13 @@
     <form action="{{ path('login') }}" method="post" class="login-form">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
 
-        <input type="text" name="_username" class="form-control input-lg" value="{{ lastUsername }}"
-               placeholder="username">
+        <input type="text" name="_username" class="form-control" value="{{ lastUsername }}" placeholder="username">
 
-        <input type="password" name="_password" class="form-control input-lg" placeholder="password"/>
+        <input type="password" name="_password" class="form-control" placeholder="password"/>
 
-        <button class="btn btn-block btn-lg btn-success" type="submit">Login</button>
+        <input type="checkbox" id="remember_me" name="_remember_me" checked/>
+        <label for="remember_me">Remember Me</label>
+
+        <button class="btn btn-primary" type="submit">Login</button>
     </form>
 {% endblock %}

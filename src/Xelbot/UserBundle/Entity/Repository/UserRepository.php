@@ -4,10 +4,11 @@ namespace Xelbot\UserBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
+use Xelbot\UserBundle\Entity\User;
 
 class UserRepository extends EntityRepository implements UserLoaderInterface
 {
-    public function loadUserByUsername($username)
+    public function loadUserByUsername($username): ?User
     {
         return $this->createQueryBuilder('u')
             ->where('u.username = :username OR u.email = :email')
@@ -15,10 +16,5 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
             ->setParameter('email', $username)
             ->getQuery()
             ->getOneOrNullResult();
-    }
-
-    public function findUserByUserName($username)
-    {
-        return $this->findOneBy(['username' => $username]);
     }
 }

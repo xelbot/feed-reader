@@ -34,7 +34,7 @@ class UserManipulator
      *
      * @return \Xelbot\UserBundle\Entity\User
      */
-    public function create($email, $username, $password, $active)
+    public function create($email, $username, $password, $active): User
     {
         $user = $this->userManager->createUser();
         $user->setEmail($email)
@@ -51,7 +51,7 @@ class UserManipulator
      *
      * @param $username
      */
-    public function delete($username)
+    public function delete($username): void
     {
         $user = $this->findUserByUsernameOrThrowException($username);
         $this->userManager->deleteUser($user);
@@ -66,7 +66,7 @@ class UserManipulator
      *
      * @return User
      */
-    private function findUserByUsernameOrThrowException($username)
+    private function findUserByUsernameOrThrowException($username): User
     {
         $user = $this->userManager->findUserByUsername($username);
 

@@ -1,18 +1,21 @@
 services:
     xelbot.user.service.user_manager:
         class: Xelbot\UserBundle\Service\UserManager
-        arguments: ["@xelbot.user.util.password_updater", "@doctrine.orm.entity_manager"]
+        arguments: ["@doctrine.orm.entity_manager", "@security.encoder_factory"]
 
     xelbot.user.util.user_manipulator:
         class: Xelbot\UserBundle\Util\UserManipulator
         arguments: ["@xelbot.user.service.user_manager"]
-
-    xelbot.user.util.password_updater:
-        class: Xelbot\UserBundle\Util\PasswordUpdater
-        arguments: ["@security.encoder_factory"]
 
     xelbot.user.event_listener.login_listener:
         class: Xelbot\UserBundle\EventListener\LoginListener
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: kernel.event_subscriber }
+
+    xelbot.user.event_listener.confirm_listener:
+        class: Xelbot\UserBundle\EventListener\EmailConfirmationListener
+        arguments: ["@xelbot.app.mailer", "@router", "@session"]
+        tags:
+            - { name: kernel.event_subscriber }
+

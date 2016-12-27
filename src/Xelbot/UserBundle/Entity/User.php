@@ -4,8 +4,8 @@ namespace Xelbot\UserBundle\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -65,7 +65,7 @@ class User implements AdvancedUserInterface, \Serializable
     protected $lastLogin;
 
     /**
-     * @var string Random string sent to the user email address in order to verify it.
+     * @var string random string sent to the user email address in order to verify it
      *
      * @ORM\Column(name="confirmation_token", type="string", length=180, nullable=true)
      */
@@ -184,9 +184,6 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->password;
     }
 
-    /**
-     * @return null
-     */
     public function getSalt()
     {
         return null;
@@ -309,7 +306,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Get id
      *
-     * @return integer
+     * @return int
      */
     public function getId(): int
     {
@@ -343,7 +340,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Set enabled
      *
-     * @param boolean $enabled
+     * @param bool $enabled
      *
      * @return User
      */
