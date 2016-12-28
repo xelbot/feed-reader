@@ -70,6 +70,6 @@ class EmailConfirmationListener implements EventSubscriberInterface
      */
     private function generateToken(): string
     {
-        return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
+        return strtr(base64_encode(random_bytes(30)), '+/', '-_');
     }
 }

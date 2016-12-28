@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Xelbot\UserBundle\Entity\Repository\UserRepository")
- * @ORM\Table(name="users", schema="public")
+ * @ORM\Table(name="users")
  * @UniqueEntity(fields="email", message="Email already taken")
  * @UniqueEntity(fields="username", message="Username already taken")
  */
@@ -67,7 +67,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @var string random string sent to the user email address in order to verify it
      *
-     * @ORM\Column(name="confirmation_token", type="string", length=180, nullable=true)
+     * @ORM\Column(name="confirmation_token", type="string", length=40, nullable=true)
      */
     protected $confirmationToken;
 
