@@ -59,6 +59,9 @@
             "@symfony-scripts"
         ]
     },
+    "config": {
+        "bin-dir": "bin"
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "extra": {
