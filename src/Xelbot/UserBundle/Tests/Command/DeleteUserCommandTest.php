@@ -5,24 +5,22 @@ namespace Xelbot\UserBundle\Tests\Command;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Xelbot\UserBundle\Command\CreateUserCommand;
+use Xelbot\UserBundle\Command\DeleteUserCommand;
 
-class CreateUserCommandTest extends \PHPUnit_Framework_TestCase
+class DeleteUserCommandTest extends \PHPUnit_Framework_TestCase
 {
     public function testExecute()
     {
-        $commandTester = $this->createCommandTester($this->getContainer('user@example.org', 'user', 'password', true));
+        $commandTester = $this->createCommandTester($this->getContainer('user'));
         $exitCode = $commandTester->execute([
             'username' => 'user',
-            'email' => 'user@example.org',
-            'password' => 'password',
         ], [
             'decorated' => false,
             'interactive' => false,
         ]);
 
         $this->assertSame(0, $exitCode, 'Returns 0 in case of success');
-        $this->assertRegExp('/Created user user/', $commandTester->getDisplay());
+        $this->assertRegExp('/User has been deleted./', $commandTester->getDisplay());
     }
 
     public function testExecuteInteractiveWithQuestionHelper()
@@ -37,18 +35,10 @@ class CreateUserCommandTest extends \PHPUnit_Framework_TestCase
             ->method('ask')
             ->will($this->returnValue('user'));
 
-        $helper->expects($this->at(1))
-            ->method('ask')
-            ->will($this->returnValue('email'));
-
-        $helper->expects($this->at(2))
-            ->method('ask')
-            ->will($this->returnValue('pass'));
-
         $application->getHelperSet()->set($helper, 'question');
 
         $commandTester = $this->createCommandTester(
-            $this->getContainer('email', 'user', 'pass', true), $application
+            $this->getContainer('user'), $application
         );
         $exitCode = $commandTester->execute([], [
             'decorated' => false,
@@ -56,7 +46,7 @@ class CreateUserCommandTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertSame(0, $exitCode, 'Returns 0 in case of success');
-        $this->assertRegExp('/Created user user/', $commandTester->getDisplay());
+        $this->assertRegExp('/User has been deleted./', $commandTester->getDisplay());
     }
 
     /**
@@ -73,26 +63,22 @@ class CreateUserCommandTest extends \PHPUnit_Framework_TestCase
 
         $application->setAutoExit(false);
 
-        $command = new CreateUserCommand();
+        $command = new DeleteUserCommand();
         $command->setContainer($container);
 
         $application->add($command);
 
-        return new CommandTester($application->find('xelbot:user:create'));
+        return new CommandTester($application->find('xelbot:user:delete'));
     }
 
     /**
      * @param $username
-     * @param $password
-     * @param $email
-     * @param $active
      *
      * @return mixed
      */
-    private function getContainer($email, $username, $password, $active)
+    private function getContainer($username)
     {
-        $container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')
-            ->getMock();
+        $container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')->getMock();
 
         $manipulator = $this->getMockBuilder('Xelbot\UserBundle\Util\UserManipulator')
             ->disableOriginalConstructor()
@@ -100,8 +86,8 @@ class CreateUserCommandTest extends \PHPUnit_Framework_TestCase
 
         $manipulator
             ->expects($this->once())
-            ->method('create')
-            ->with($email, $username, $password, $active);
+            ->method('delete')
+            ->with($username);
 
         $container
             ->expects($this->once())
