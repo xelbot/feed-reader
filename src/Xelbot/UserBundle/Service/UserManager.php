@@ -101,9 +101,9 @@ class UserManager
     /**
      * Returns a collection with all user instances.
      *
-     * @return \Traversable
+     * @return array
      */
-    public function findUsers(): \Traversable
+    public function findUsers(): array
     {
         return $this->repository->findAll();
     }

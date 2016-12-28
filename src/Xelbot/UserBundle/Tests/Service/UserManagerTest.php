@@ -76,6 +76,22 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
         $this->userManager->findUserBy($criteria);
     }
 
+    public function testFindUsers()
+    {
+        $this->repository->expects($this->once())->method('findAll')->will($this->returnValue([]));
+
+        $this->userManager->findUsers();
+    }
+
+    public function testUpdateUser()
+    {
+        $user = $this->getUser();
+        $this->om->expects($this->once())->method('persist')->with($this->equalTo($user));
+        $this->om->expects($this->once())->method('flush');
+
+        $this->userManager->updateUser($user);
+    }
+
     /**
      * @return mixed
      */
