@@ -27,7 +27,7 @@ class RegistrationController extends Controller
             throw $this->createAccessDeniedException();
         }
 
-        $userManager = $this->get('xelbot.user.service.user_manager');
+        $userManager = $this->get('xelbot.user.user_manager');
         $dispatcher = $this->get('event_dispatcher');
         $user = $userManager->createUser();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -59,7 +59,7 @@ class RegistrationController extends Controller
      */
     public function confirmAction($token)
     {
-        $userManager = $this->get('xelbot.user.service.user_manager');
+        $userManager = $this->get('xelbot.user.user_manager');
         $user = $userManager->findUserByConfirmationToken($token);
 
         if (empty($user)) {

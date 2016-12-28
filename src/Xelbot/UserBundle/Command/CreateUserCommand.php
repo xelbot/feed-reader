@@ -38,8 +38,16 @@ class CreateUserCommand extends ContainerAwareCommand
         $password = $input->getArgument('password');
         $inactive = $input->getOption('inactive');
 
-        $manipulator = $this->getContainer()->get('xelbot.user.util.user_manipulator');
-        $manipulator->create($email, $username, $password, !$inactive);
+        $userManager = $this->getContainer()->get('xelbot.user.user_manager');
+        $user = $userManager->createUser();
+        $user
+            ->setEmail($email)
+            ->setUsername($username)
+            ->setPlainPassword($password)
+            ->setEnabled(!$inactive)
+        ;
+
+        $userManager->updateUser($user);
 
         $output->writeln(sprintf('Created user <comment>%s</comment>', $username));
     }

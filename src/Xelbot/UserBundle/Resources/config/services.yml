@@ -1,11 +1,9 @@
 services:
-    xelbot.user.service.user_manager:
+    xelbot.user.user_manager:
         class: Xelbot\UserBundle\Service\UserManager
-        arguments: ["@doctrine.orm.entity_manager", "@security.encoder_factory"]
-
-    xelbot.user.util.user_manipulator:
-        class: Xelbot\UserBundle\Util\UserManipulator
-        arguments: ["@xelbot.user.service.user_manager"]
+        parent: xelbot.app.base_manager
+        calls:
+            - [ setEncoderFactory, [ "@security.encoder_factory" ]]
 
     xelbot.user.event_listener.login_listener:
         class: Xelbot\UserBundle\EventListener\LoginListener
@@ -18,4 +16,3 @@ services:
         arguments: ["@xelbot.app.mailer", "@router", "@session"]
         tags:
             - { name: kernel.event_subscriber }
-

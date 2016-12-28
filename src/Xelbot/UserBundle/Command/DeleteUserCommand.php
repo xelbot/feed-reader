@@ -29,10 +29,16 @@ class DeleteUserCommand extends ContainerAwareCommand
     {
         $username = $input->getArgument('username');
 
-        $manipulator = $this->getContainer()->get('xelbot.user.util.user_manipulator');
-        $manipulator->delete($username);
+        $userManager = $this->getContainer()->get('xelbot.user.user_manager');
+        $user = $userManager->findUserByUsername($username);
 
-        $output->writeln('User has been deleted.');
+        if (!$user) {
+            throw new \InvalidArgumentException(sprintf('User identified by "%s" username does not exist.', $username));
+        }
+
+        $userManager->delete($user);
+
+        $output->writeln(sprintf('User <comment>%s</comment> has been deleted.', $username));
     }
 
     /**

@@ -7,3 +7,7 @@ services:
     xelbot.app.mailer:
         class: Xelbot\AppBundle\Mailer\Mailer
         arguments: ["@mailer", "@router", "@templating", "%email_params%"]
+
+    xelbot.app.base_manager:
+        class: Xelbot\AppBundle\Service\BaseManager
+        arguments: ["@doctrine.orm.entity_manager"]

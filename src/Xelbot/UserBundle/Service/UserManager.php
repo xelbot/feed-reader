@@ -2,41 +2,23 @@
 
 namespace Xelbot\UserBundle\Service;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Xelbot\UserBundle\Entity\Repository\UserRepository;
+use Xelbot\AppBundle\Service\BaseManager;
 use Xelbot\UserBundle\Entity\User;
 
-class UserManager
+class UserManager extends BaseManager
 {
-    /**
-     * @var ObjectManager
-     */
-    protected $objectManager;
-
-    /**
-     * @var UserRepository
-     */
-    protected $repository;
-
     /**
      * @var EncoderFactoryInterface
      */
     protected $encoderFactory;
 
     /**
-     * UserManager Constructor.
-     *
-     * @param ObjectManager $om
      * @param EncoderFactoryInterface $encoderFactory
-     *
-     * @internal param PasswordUpdater $passwordUpdater
      */
-    public function __construct(ObjectManager $om, EncoderFactoryInterface $encoderFactory)
+    public function setEncoderFactory(EncoderFactoryInterface $encoderFactory): void
     {
-        $this->objectManager = $om;
         $this->encoderFactory = $encoderFactory;
-        $this->repository = $om->getRepository('UserBundle:User');
     }
 
     /**
@@ -61,10 +43,7 @@ class UserManager
     {
         $this->updatePassword($user);
 
-        $this->objectManager->persist($user);
-        if ($andFlush) {
-            $this->objectManager->flush();
-        }
+        $this->save($user, $andFlush);
     }
 
     /**
@@ -88,24 +67,13 @@ class UserManager
     }
 
     /**
-     * Deletes a user.
-     *
-     * @param User $user
-     */
-    public function deleteUser(User $user): void
-    {
-        $this->objectManager->remove($user);
-        $this->objectManager->flush();
-    }
-
-    /**
      * Returns a collection with all user instances.
      *
      * @return array
      */
     public function findUsers(): array
     {
-        return $this->repository->findAll();
+        return $this->em->getRepository('UserBundle:User')->findAll();
     }
 
     /**
@@ -141,6 +109,6 @@ class UserManager
      */
     public function findUserBy(array $criteria): ?User
     {
-        return $this->repository->findOneBy($criteria);
+        return $this->em->getRepository('UserBundle:User')->findOneBy($criteria);
     }
 }
