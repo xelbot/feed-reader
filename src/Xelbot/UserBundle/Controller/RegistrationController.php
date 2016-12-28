@@ -15,7 +15,7 @@ use Xelbot\UserBundle\UserEvents;
 class RegistrationController extends Controller
 {
     /**
-     * @Route("/register")
+     * @Route("/register", name="registration")
      *
      * @param Request $request
      *
@@ -23,6 +23,10 @@ class RegistrationController extends Controller
      */
     public function registerAction(Request $request)
     {
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $userManager = $this->get('xelbot.user.service.user_manager');
         $dispatcher = $this->get('event_dispatcher');
         $user = $userManager->createUser();
@@ -35,6 +39,8 @@ class RegistrationController extends Controller
             $dispatcher->dispatch(UserEvents::REGISTRATION_SUCCESS, $event);
 
             $userManager->updateUser($user);
+
+            $this->addFlash('success', 'We\'ve sent a verification link to your email address. Please check your inbox and click the link to log in.');
 
             return $this->redirectToRoute('homepage');
         }

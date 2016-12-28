@@ -1,12 +1,23 @@
-{% extends '::base.html.twig' %}
+{% extends 'AppBundle::base.html.twig' %}
+{% block title %}{{ 'Sign up'|trans }}{% endblock %}
 
-{% block body %}
-    {{ form_start(form) }}
-    {{ form_row(form.username) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.plainPassword.first) }}
-    {{ form_row(form.plainPassword.second) }}
+{% block content %}
+    <div class="static-page">
+        <h1>{{ 'Sign up'|trans }}</h1>
+        <p>Create your personal account</p>
+        <div class="row">
+            <div class="col-lg-5">
+                {{ form_start(form) }}
 
-    <button type="submit">Create an account</button>
-    {{ form_end(form) }}
+                {{ form_row(form.username) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.plainPassword.first) }}
+                {{ form_row(form.plainPassword.second) }}
+
+                {{ form_widget(form.submit, {'attr': {'class':'btn btn-primary', 'value': 'Create an account'} }) }}
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}
