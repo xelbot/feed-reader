@@ -40,7 +40,8 @@
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
-        "friendsofphp/php-cs-fixer": "~2.0"
+        "friendsofphp/php-cs-fixer": "~2.0",
+        "phpunit/phpunit": "5.5.*"
     },
     "scripts": {
         "symfony-scripts": [
