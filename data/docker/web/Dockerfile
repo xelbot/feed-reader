@@ -36,10 +36,6 @@ RUN a2enmod rewrite remoteip
 RUN curl -sS -o /root/.bash_aliases https://raw.githubusercontent.com/morontt/dotfiles/master/ubuntu/.bash_aliases
 RUN sed -i "s/php app\/console/php bin\/console/g" /root/.bash_aliases
 
-RUN curl -sSL -o /root/phpunit.phar https://phar.phpunit.de/phpunit.phar \
-    && chmod +x /root/phpunit.phar \
-    && mv /root/phpunit.phar /usr/local/bin/phpunit
-
 RUN set -x && curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
 
