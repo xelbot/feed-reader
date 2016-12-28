@@ -1,4 +1,13 @@
+parameters:
+    email_params:
+        from_email: "%mailer_user%"
+        from_name: "%app_name%"
+
 services:
-#    app.example:
-#        class: Xelbot\AppBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    xelbot.app.mailer:
+        class: Xelbot\AppBundle\Mailer\Mailer
+        arguments: ["@mailer", "@router", "@templating", "%email_params%"]
+
+    xelbot.app.base_manager:
+        class: Xelbot\AppBundle\Service\BaseManager
+        arguments: ["@doctrine.orm.entity_manager"]
