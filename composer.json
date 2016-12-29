@@ -43,7 +43,6 @@
         "friendsofphp/php-cs-fixer": "~2.0",
         "phpunit/phpunit": "5.5.*",
         "doctrine/doctrine-fixtures-bundle": "^2.3",
-        "fzaninotto/faker": "^1.6",
         "fzaninotto/faker": "^1.6"
     },
     "scripts": {
