@@ -2,6 +2,7 @@
 
 namespace Xelbot\UserBundle\Tests\Service;
 
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Xelbot\UserBundle\Entity\User;
 use Xelbot\UserBundle\Service\UserManager;
 
@@ -32,7 +33,11 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->om = $this->getMockBuilder('Doctrine\Common\Persistence\ObjectManager')->getMock();
+        $this->om = $this
+            ->getMockBuilder('Doctrine\ORM\EntityManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->encoderFactory = $this->getMockBuilder('Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface')->getMock();
         $this->repository = $this->getMockBuilder('Doctrine\Common\Persistence\ObjectRepository')->getMock();
 
@@ -52,7 +57,12 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getName')
             ->will($this->returnValue('UserBundle:User'));
 
-        $this->userManager = new UserManager($this->om, $this->encoderFactory);
+        $this->userManager = new UserManager($this->om);
+    }
+
+    public function testCreateEmptyUserEntity()
+    {
+        $this->assertInstanceOf(AdvancedUserInterface::class, $this->userManager->create());
     }
 
     public function testDeleteUser()
@@ -61,7 +71,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
         $this->om->expects($this->once())->method('remove')->with($this->equalTo($user));
         $this->om->expects($this->once())->method('flush');
 
-        $this->userManager->deleteUser($user);
+        $this->userManager->delete($user);
     }
 
     public function testFindUserBy()

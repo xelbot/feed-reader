@@ -29,7 +29,7 @@ class RegistrationController extends Controller
 
         $userManager = $this->get('xelbot.user.user_manager');
         $dispatcher = $this->get('event_dispatcher');
-        $user = $userManager->createUser();
+        $user = $userManager->create();
         $form = $this->createForm(RegistrationFormType::class, $user);
 
         $form->handleRequest($request);
@@ -70,6 +70,8 @@ class RegistrationController extends Controller
         $user->setEnabled(true);
 
         $userManager->updateUser($user);
+
+        $this->addFlash('success', 'Congratulations, your account has been activated.');
 
         return $this->redirectToRoute('homepage');
     }

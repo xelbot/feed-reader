@@ -26,9 +26,33 @@ class UserManager extends BaseManager
      *
      * @return User
      */
-    public function createUser(): User
+    public function create(): User
     {
         $user = new User();
+
+        return $user;
+    }
+
+    /**
+     * Creates a user and returns it.
+     *
+     * @param $email
+     * @param $username
+     * @param $password
+     * @param $active
+     *
+     * @return User
+     */
+    public function createUser($email, $username, $password, $active): User
+    {
+        $user = $this->create();
+
+        $user->setEmail($email)
+            ->setUsername($username)
+            ->setPlainPassword($password)
+            ->setEnabled($active);
+
+        $this->updateUser($user);
 
         return $user;
     }
@@ -110,5 +134,25 @@ class UserManager extends BaseManager
     public function findUserBy(array $criteria): ?User
     {
         return $this->em->getRepository('UserBundle:User')->findOneBy($criteria);
+    }
+
+    /**
+     * Finds a user by his username and throws an exception if we can't find it.
+     *
+     * @param string $username
+     *
+     * @throws \InvalidArgumentException When user does not exist
+     *
+     * @return User
+     */
+    public function findUserByUsernameOrThrowException($username): User
+    {
+        $user = $this->findUserByUsername($username);
+
+        if (!$user) {
+            throw new \InvalidArgumentException(sprintf('User identified by "%s" username does not exist.', $username));
+        }
+
+        return $user;
     }
 }

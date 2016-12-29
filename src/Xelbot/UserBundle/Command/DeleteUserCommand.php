@@ -30,11 +30,7 @@ class DeleteUserCommand extends ContainerAwareCommand
         $username = $input->getArgument('username');
 
         $userManager = $this->getContainer()->get('xelbot.user.user_manager');
-        $user = $userManager->findUserByUsername($username);
-
-        if (!$user) {
-            throw new \InvalidArgumentException(sprintf('User identified by "%s" username does not exist.', $username));
-        }
+        $user = $userManager->findUserByUsernameOrThrowException($username);
 
         $userManager->delete($user);
 

@@ -6,6 +6,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Xelbot\UserBundle\Command\CreateUserCommand;
+use Xelbot\UserBundle\Entity\User;
 
 class CreateUserCommandTest extends \PHPUnit_Framework_TestCase
 {
@@ -94,20 +95,22 @@ class CreateUserCommandTest extends \PHPUnit_Framework_TestCase
         $container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')
             ->getMock();
 
-        $manipulator = $this->getMockBuilder('Xelbot\UserBundle\Util\UserManipulator')
+        $user = $this->createMock(User::class);
+
+        $userManager = $this->getMockBuilder('Xelbot\UserBundle\Service\UserManager')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $manipulator
-            ->expects($this->once())
-            ->method('create')
-            ->with($email, $username, $password, $active);
+        $userManager->expects($this->once())
+            ->method('createUser')
+            ->with($email, $username, $password, $active)
+            ->will($this->returnValue($user));
 
         $container
             ->expects($this->once())
             ->method('get')
-            ->with('xelbot.user.util.user_manipulator')
-            ->will($this->returnValue($manipulator));
+            ->with('xelbot.user.user_manager')
+            ->will($this->returnValue($userManager));
 
         return $container;
     }
