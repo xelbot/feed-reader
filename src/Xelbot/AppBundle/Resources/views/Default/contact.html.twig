@@ -8,14 +8,7 @@
         <div class="row">
             <div class="col-lg-5">
                 {{ form_start(form) }}
-
-                {{ form_row(form.name) }}
-                {{ form_row(form.email) }}
-                {{ form_row(form.subject) }}
-                {{ form_row(form.message, { 'attr': {'rows': '5'}}) }}
-
-                {{ form_widget(form.submit, {'attr': {'class':'btn btn-primary', 'value': 'Submit'} }) }}
-
+                {{ form_widget(form) }}
                 {{ form_end(form) }}
             </div>
         </div>

@@ -20,3 +20,6 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
     app_name: Feed Reader
+    admin_emails:
+        - admin@example.org
+        - admin2@example.org

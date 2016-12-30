@@ -21,6 +21,10 @@ class ContactFormType extends AbstractType
             ->add('email', EmailType::class)
             ->add('subject', TextType::class)
             ->add('message', TextareaType::class)
-            ->add('submit', SubmitType::class);
+            ->add('submit', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-primary',
+                ],
+            ]);
     }
 }

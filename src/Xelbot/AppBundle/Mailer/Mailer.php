@@ -79,9 +79,8 @@ class Mailer
     {
         $body = $contactFormType->get('message')->getData();
         $subject = $contactFormType->get('subject')->getData();
-        $toEmail = $this->parameters['from_email'];
 
-        $this->sendEmailMessage($body, $subject, $toEmail);
+        $this->sendEmailMessage($body, $subject, $this->parameters['admin_emails']);
     }
 
     /**
