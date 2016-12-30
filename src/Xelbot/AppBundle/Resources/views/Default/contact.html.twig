@@ -1,0 +1,23 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% block title %}{{ 'Contact us'|trans }}{% endblock %}
+
+{% block content %}
+    <div class="static-page">
+        <h1>{{ 'Contact us'|trans }}</h1>
+        <p>If you have business inquiries or other questions, please fill out the following form to contact us.</p>
+        <div class="row">
+            <div class="col-lg-5">
+                {{ form_start(form) }}
+
+                {{ form_row(form.name) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.subject) }}
+                {{ form_row(form.message, { 'attr': {'rows': '5'}}) }}
+
+                {{ form_widget(form.submit, {'attr': {'class':'btn btn-primary', 'value': 'Submit'} }) }}
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

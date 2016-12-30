@@ -4,6 +4,7 @@ namespace Xelbot\AppBundle\Mailer;
 
 use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Xelbot\UserBundle\Entity\User;
 
@@ -67,6 +68,20 @@ class Mailer
         ]);
 
         $this->sendEmailMessage($body, $subject, $user->getEmail());
+    }
+
+    /**
+     * Send contact us email
+     *
+     * @param Form $contactFormType
+     */
+    public function sendContactUsEmail(Form $contactFormType)
+    {
+        $body = $contactFormType->get('message')->getData();
+        $subject = $contactFormType->get('subject')->getData();
+        $toEmail = $this->parameters['from_email'];
+
+        $this->sendEmailMessage($body, $subject, $toEmail);
     }
 
     /**
