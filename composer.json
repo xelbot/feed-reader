@@ -41,6 +41,8 @@
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
         "friendsofphp/php-cs-fixer": "~2.0",
+        "behat/mink-extension": "^2.2",
+        "behat/symfony2-extension": "^2.1",
         "phpunit/phpunit": "5.5.*",
         "doctrine/doctrine-fixtures-bundle": "^2.3",
         "fzaninotto/faker": "^1.6"
