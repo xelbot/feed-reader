@@ -19,7 +19,7 @@ class LoadUserData extends AbstractFixture implements ContainerAwareInterface, O
     /**
      * @var int
      */
-    protected $countOfGeneratedUsers = 100;
+    protected $countOfGeneratedUsers = 20;
 
     /**
      * {@inheritdoc}
@@ -39,7 +39,7 @@ class LoadUserData extends AbstractFixture implements ContainerAwareInterface, O
 
         $faker = Factory::create();
 
-        for ($i = 0; $i <= $this->countOfGeneratedUsers; $i++) {
+        for ($i = 0; $i < $this->countOfGeneratedUsers; $i++) {
             $userManager->createUser($faker->email, $faker->userName, 'test', true);
         }
     }
