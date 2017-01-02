@@ -1,6 +1,6 @@
 Feature: startpage
-  Check security
+  Check startpage
 
-  Scenario: login
+  Scenario: startpage
     Given I am on homepage
     Then I should see "Hello World!"
