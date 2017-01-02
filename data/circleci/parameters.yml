@@ -13,3 +13,4 @@ parameters:
     mailer_port: 465
     mailer_encryption: ssl
     app_name: 'Feed Reader'
+    nodemodules_bin_path: /opt/circleci/nodejs/v4.2.6/bin

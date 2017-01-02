@@ -10,29 +10,31 @@ machine:
 
 checkout:
   post:
-    - cp ./data/circleci/behat.yml ./app/config/parameters.yml
+    - cp ./data/circleci/parameters.yml ./app/config/parameters.yml
     - cp ./data/circleci/behat.yml ./behat.yml
+    - cp ./phpunit.xml{.dist,}
 
 dependencies:
+  pre:
+    - echo "date.timezone = Europe/Zaporozhye" >> /opt/circleci/php/7.1.0/etc/php.ini
   cache_directories:
     - vendor
     - bin
+    - web/bower_vendor
   override:
     - npm install -g bower
     - npm install -g uglifycss
     - npm install -g uglify-js
     - composer install --no-interaction
     - bower install
-    - app/console assetic:dump -e test --no-debug
-  post:
-    - echo "date.timezone = Europe/Zaporozhye" >> ~/.phpenv/versions/5.5.9/etc/php.ini
+    - bin/console assetic:dump -e test --no-debug
 
 database:
   override:
-    - app/console doctrine:database:drop -e test --no-interaction --force
-    - app/console doctrine:database:create -e test --no-interaction
-    - app/console doctrine:migrations:migrate -e test --no-interaction
-    - app/console doctrine:fixtures:load -e test --no-interaction
+    - bin/console doctrine:database:drop -e test --no-interaction --force
+    - bin/console doctrine:database:create -e test --no-interaction
+    - bin/console doctrine:migrations:migrate -e test --no-interaction
+    - bin/console doctrine:fixtures:load -e test --no-interaction
 
 test:
   pre:
@@ -40,4 +42,5 @@ test:
     - chmod -R 777 var/logs
   override:
     - bin/php-cs-fixer fix --dry-run --diff
+    - bin/phpunit
     - bin/behat @TestBundle

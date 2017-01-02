@@ -5,8 +5,7 @@
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.8/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="app/autoload.php"
->
+         bootstrap="app/autoload.php">
     <php>
         <ini name="error_reporting" value="-1"/>
         <server name="KERNEL_DIR" value="app/"/>
@@ -14,7 +13,7 @@
 
     <testsuites>
         <testsuite name="Project Test Suite">
-            <directory>tests</directory>
+            <directory>src/Xelbot</directory>
         </testsuite>
     </testsuites>
 
@@ -23,8 +22,6 @@
             <directory>src</directory>
             <exclude>
                 <directory>src/Xelbot/*Bundle/Resources</directory>
-                <directory>src/Xelbot/*/*Bundle/Resources</directory>
-                <directory>src/Xelbot/*/Bundle/*Bundle/Resources</directory>
             </exclude>
         </whitelist>
     </filter>

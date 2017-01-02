@@ -46,8 +46,10 @@ assetic:
     use_controller: false
     filters:
         cssrewrite: ~
-        uglifyjs2: ~
-        uglifycss: ~
+        uglifyjs2:
+            bin: "%nodemodules_bin_path%/uglifyjs"
+        uglifycss:
+            bin: "%nodemodules_bin_path%/uglifycss"
 
 # Doctrine Configuration
 doctrine:

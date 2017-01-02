@@ -15,6 +15,8 @@ parameters:
     mailer_port: 465
     mailer_encryption: ssl
 
+    nodemodules_bin_path: /usr/bin
+
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
     app_name: Feed Reader
