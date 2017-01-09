@@ -77,8 +77,9 @@ class Mailer
      */
     public function sendContactUsEmail(Form $contactFormType)
     {
-        $body = $contactFormType->get('message')->getData();
-        $subject = $contactFormType->get('subject')->getData();
+        $template = 'AppBundle:emails:contact.txt.twig';
+        $body = $this->templating->render($template, $contactFormType->getData());
+        $subject = 'Feed Reader | Contact Us';
 
         $this->sendEmailMessage($body, $subject, $this->parameters['admin_emails']);
     }
