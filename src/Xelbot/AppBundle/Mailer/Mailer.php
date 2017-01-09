@@ -4,7 +4,6 @@ namespace Xelbot\AppBundle\Mailer;
 
 use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\Form\Form;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Xelbot\UserBundle\Entity\User;
 
@@ -73,12 +72,12 @@ class Mailer
     /**
      * Send contact us email
      *
-     * @param Form $contactFormType
+     * @param $params
      */
-    public function sendContactUsEmail(Form $contactFormType)
+    public function sendContactUsEmail($params)
     {
         $template = 'AppBundle:emails:contact.txt.twig';
-        $body = $this->templating->render($template, $contactFormType->getData());
+        $body = $this->templating->render($template, $params);
         $subject = 'Feed Reader | Contact Us';
 
         $this->sendEmailMessage($body, $subject, $this->parameters['admin_emails']);

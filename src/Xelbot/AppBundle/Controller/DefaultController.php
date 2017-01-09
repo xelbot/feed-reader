@@ -33,7 +33,7 @@ class DefaultController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('xelbot.app.mailer')->sendContactUsEmail($form);
+            $this->get('xelbot.app.mailer')->sendContactUsEmail($form->getData());
 
             $this->addFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
 
