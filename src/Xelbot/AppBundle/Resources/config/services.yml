@@ -2,6 +2,7 @@ parameters:
     email_params:
         from_email: "%mailer_user%"
         from_name: "%app_name%"
+        admin_emails: "%admin_emails%"
 
 services:
     xelbot.app.mailer:
