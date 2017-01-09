@@ -58,7 +58,7 @@
                 "source": {
                     "type": "git",
                     "url": "https://github.com/morontt/DoctrineDataFixturesExtension",
-                    "reference": "addbecc814582f177f1ccb24771bbe71d99e3807"
+                    "reference": "95b6afd3c95dd3a8d24cbbe8ea165c273135a395"
                 },
                 "autoload": {
                     "psr-0": { "VIPSoft\\DoctrineDataFixturesExtension": "src/" }
