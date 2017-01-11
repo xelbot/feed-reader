@@ -20,19 +20,19 @@ Feature: login and registration
   Scenario: registration
     When I follow "Sign up"
     And I fill in the following:
-      | Username | batman |
-      | Email | batman@example.org |
-      | Password | qwerty |
-      | Repeat Password | qwerty |
+      | Username        | batman             |
+      | Email           | batman@example.org |
+      | Password        | qwerty             |
+      | Repeat Password | qwerty             |
     And I press "Create an account"
     Then I should see "We've sent a verification link to your email address. Please check your inbox and click the link to log in."
 
   Scenario: registration with used email
     When I follow "Sign up"
     And I fill in the following:
-      | Username | mireille |
-      | Email | mireille56@gmail.com |
-      | Password | qwerty |
-      | Repeat Password | qwerty |
+      | Username        | mireille             |
+      | Email           | mireille56@gmail.com |
+      | Password        | qwerty               |
+      | Repeat Password | qwerty               |
     And I press "Create an account"
     Then I should see "Email already taken"

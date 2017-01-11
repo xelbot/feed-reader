@@ -21,10 +21,11 @@ class DefaultController extends Controller
 
     /**
      * @Route("/contact", name="contact")
+     * @Template()
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function contactAction(Request $request)
     {
@@ -40,8 +41,8 @@ class DefaultController extends Controller
             return $this->redirectToRoute('contact');
         }
 
-        return $this->render('AppBundle:Default:contact.html.twig', [
+        return [
             'form' => $form->createView(),
-        ]);
+        ];
     }
 }
