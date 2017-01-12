@@ -17,7 +17,6 @@ default:
             autoload:    true
             directories: ~
             fixtures:    ~
-            use_backup:  false
 
     suites:
         test_suite:
