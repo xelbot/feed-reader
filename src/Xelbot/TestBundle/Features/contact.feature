@@ -16,5 +16,7 @@ Feature: Contact us
     Given I am on homepage
     When I follow "Contact"
     And press "Submit"
-    Then I should not see "Thank you for contacting us. We will respond to you as soon as possible."
-    And I should see "пшёл нах, сцуко"
+    Then I should see "Name cannot be blank."
+    And I should see "Email cannot be blank."
+    And I should see "Subject cannot be blank."
+    And I should see "Message cannot be blank."
