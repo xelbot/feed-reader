@@ -2,11 +2,34 @@
 
 namespace Xelbot\AppBundle\Tests\Form;
 
+use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
+use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Xelbot\AppBundle\Form\ContactFormType;
 
 class ContactFormTypeTest extends TypeTestCase
 {
+    private $validator;
+
+    /**
+     * @inheritdoc
+     */
+    protected function getExtensions()
+    {
+        $this->validator = $this->createMock(ValidatorInterface::class);
+        $this->validator
+            ->method('validate')
+            ->will($this->returnValue(new ConstraintViolationList()));
+
+        $this->validator
+            ->method('getMetadataFor')
+            ->will($this->returnValue(new ClassMetadata('Symfony\Component\Form\Form')));
+
+        return [new ValidatorExtension($this->validator)];
+    }
+
     public function testSubmit()
     {
         $form = $this->factory->create(ContactFormType::class);
