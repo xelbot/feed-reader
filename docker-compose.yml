@@ -21,7 +21,7 @@ services:
         volumes:
             - .:/var/www/html
         ports:
-            - "80:80"
+            - "8091:80"
         links:
             - marmoset
         depends_on:
