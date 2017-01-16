@@ -13,11 +13,14 @@ RUN echo Europe/Kiev > /etc/timezone && \
 
 RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
 
+RUN curl -sL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+
 RUN apt-get update && apt-get install -y apt-utils
 RUN apt-get install -y \
     zlib1g-dev libicu-dev libpq-dev \
     git nano zip \
-    nodejs
+    nodejs postgresql-client-9.6
 
 RUN docker-php-ext-install intl zip pgsql pdo_pgsql opcache
 
@@ -35,6 +38,7 @@ RUN a2enmod rewrite remoteip
 
 RUN curl -sS -o /root/.bash_aliases https://raw.githubusercontent.com/morontt/dotfiles/master/ubuntu/.bash_aliases
 RUN sed -i "s/php app\/console/php bin\/console/g" /root/.bash_aliases
+RUN sed -i "s/php-cs-fixer/php bin\/php-cs-fixer/g" /root/.bash_aliases
 
 RUN set -x && curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer

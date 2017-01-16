@@ -3,12 +3,14 @@
 namespace Xelbot\UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class SecurityController extends Controller
 {
     /**
      * @Route("/login", name="login")
+     * @Template()
      */
     public function loginAction()
     {
@@ -20,9 +22,6 @@ class SecurityController extends Controller
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('UserBundle:Security:login.html.twig', [
-            'lastUsername' => $lastUsername,
-            'error' => $error,
-        ]);
+        return compact('lastUsername', 'error');
     }
 }

@@ -3,10 +3,10 @@
 namespace Xelbot\UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Xelbot\UserBundle\Event\FormEvent;
 use Xelbot\UserBundle\Form\RegistrationFormType;
@@ -16,10 +16,11 @@ class RegistrationController extends Controller
 {
     /**
      * @Route("/register", name="registration")
+     * @Template()
      *
      * @param Request $request
      *
-     * @return RedirectResponse|Response
+     * @return array|RedirectResponse
      */
     public function registerAction(Request $request)
     {
@@ -45,9 +46,9 @@ class RegistrationController extends Controller
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('UserBundle:Registration:register.html.twig', [
+        return [
             'form' => $form->createView(),
-        ]);
+        ];
     }
 
     /**

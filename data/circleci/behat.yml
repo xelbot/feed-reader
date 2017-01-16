@@ -1,0 +1,27 @@
+default:
+    autoload:
+        '': "%paths.base%/src"
+
+    formatters:
+        progress: true
+
+    extensions:
+        Behat\Symfony2Extension: ~
+        Behat\MinkExtension:
+            sessions:
+                default:
+                    symfony2: ~
+
+        VIPSoft\DoctrineDataFixturesExtension\Extension:
+            lifetime:    feature
+            autoload:    true
+            directories: ~
+            fixtures:    ~
+
+    suites:
+        test_suite:
+            type: symfony_bundle
+            bundle: TestBundle
+            mink_session: default
+            contexts:
+                - Xelbot\TestBundle\Features\Context\FeatureContext: ~

@@ -1,0 +1,16 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: localhost
+    database_port: null
+    database_name: circle
+    database_user: ubuntu
+    database_password: null
+    mailer_transport: null
+    mailer_host: 127.0.0.1
+    mailer_user: admin@example.com
+    mailer_password: test
+    secret: lWy6kYiDCLGoiZGC1doqEbBuff17X8SGtag2J4U
+    mailer_port: 465
+    mailer_encryption: ssl
+    app_name: 'Feed Reader'
+    nodemodules_bin_path: /opt/circleci/nodejs/v4.2.6/bin

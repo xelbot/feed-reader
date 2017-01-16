@@ -70,6 +70,20 @@ class Mailer
     }
 
     /**
+     * Send contact us email
+     *
+     * @param $params
+     */
+    public function sendContactUsEmail($params)
+    {
+        $template = 'AppBundle:emails:contact.txt.twig';
+        $body = $this->templating->render($template, $params);
+        $subject = 'Feed Reader | Contact Us';
+
+        $this->sendEmailMessage($body, $subject, $this->parameters['admin_emails']);
+    }
+
+    /**
      * @param string $body
      * @param $subject
      * @param string $toEmail

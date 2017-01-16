@@ -18,3 +18,4 @@
 /.env
 /web/css
 /web/js
+/behat.yml
