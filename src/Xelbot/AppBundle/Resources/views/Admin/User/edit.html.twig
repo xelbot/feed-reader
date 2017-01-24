@@ -1,0 +1,21 @@
+{% extends '@App/Admin/base.html.twig' %}
+
+{% block content %}
+    <h1>User edit</h1>
+
+    {{ form_start(edit_form) }}
+    {{ form_widget(edit_form) }}
+    <input class="btn btn-primary" type="submit" value="Edit"/>
+    {{ form_end(edit_form) }}
+
+    <ul>
+        <li>
+            <a class="btn btn-default" href="{{ path('admin_user_index') }}">Back to the list</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+            <input class="btn btn-success" type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

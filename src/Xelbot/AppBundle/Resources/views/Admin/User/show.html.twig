@@ -1,0 +1,46 @@
+{% extends '@App/Admin/base.html.twig' %}
+
+{% block content %}
+    <h1>User</h1>
+
+    <p>
+        {{ form_start(delete_form) }}
+        <input class="btn btn-success" type="submit" value="Delete">
+        {{ form_end(delete_form) }}
+    </p>
+    <div>
+        <table class="table table-hover table-bordered detail-view">
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Active</th>
+                <td>{% if user.enabled %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Last Login</th>
+                <td>{% if user.lastLogin %}{{ user.lastLogin|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Sign Up Date</th>
+                <td>{% if user.createdAt %}{{ user.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a class="btn btn-default" href="{{ path('admin_user_index') }}">Back to the list</a>
+
+    <a class="btn btn-default" href="{{ path('admin_user_edit', { 'id': user.id }) }}">Edit</a>
+
+{% endblock %}
