@@ -19,3 +19,4 @@
 /web/css
 /web/js
 /behat.yml
+/docker-compose.override.yml

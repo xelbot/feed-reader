@@ -14,10 +14,15 @@ Feed Reader is a platform for you to read and organize news and updates from all
 
 #### Install
 
-    cp .env.dist .env
+```bash
+    cp .env{.dist,}
+    cp docker-compose.override.yml{.dist,}
     docker-compose up --build
+```
 
 #### Install vendors, build app, etc.
 
+```bash
     docker exec -it container_name bash
-    composer install
+    ./updateenv.sh
+```

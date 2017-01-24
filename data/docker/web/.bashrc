@@ -14,7 +14,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 alias ll='ls -ahl'
-alias ownr='chown -R www-data:www-data var/cache var/logs src vendor web app'
+alias ownr='chown -R www-data:www-data var/cache var/logs src vendor web app bin'
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
