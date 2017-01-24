@@ -44,28 +44,11 @@
         "behat/mink-extension": "^2.2",
         "behat/symfony2-extension": "^2.1",
         "behat/mink-browserkit-driver": "^1.3",
-        "morontt/doctrine-data-fixtures-extension": "dev-master",
+        "vipsoft/doctrine-data-fixtures-extension": "dev-master",
         "phpunit/phpunit": "5.5.*",
         "doctrine/doctrine-fixtures-bundle": "^2.3",
         "fzaninotto/faker": "^1.6"
     },
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "morontt/doctrine-data-fixtures-extension",
-                "version": "dev-master",
-                "source": {
-                    "type": "git",
-                    "url": "https://github.com/morontt/DoctrineDataFixturesExtension",
-                    "reference": "95b6afd3c95dd3a8d24cbbe8ea165c273135a395"
-                },
-                "autoload": {
-                    "psr-0": { "VIPSoft\\DoctrineDataFixturesExtension": "src/" }
-                }
-            }
-        }
-    ],
     "scripts": {
         "symfony-scripts": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",

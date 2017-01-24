@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2812961797e0f0b23e1fa7323813ff73",
+    "content-hash": "339d1cf0e96a200a33b09ad1dae69319",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -3149,21 +3149,6 @@
             "time": "2016-04-29T12:21:54+00:00"
         },
         {
-            "name": "morontt/doctrine-data-fixtures-extension",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/morontt/DoctrineDataFixturesExtension",
-                "reference": "95b6afd3c95dd3a8d24cbbe8ea165c273135a395"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "VIPSoft\\DoctrineDataFixturesExtension": "src/"
-                }
-            }
-        },
-        {
             "name": "myclabs/deep-copy",
             "version": "1.5.5",
             "source": {
@@ -4482,6 +4467,67 @@
             "time": "2016-11-14T01:06:16+00:00"
         },
         {
+            "name": "vipsoft/doctrine-data-fixtures-extension",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vipsoft/DoctrineDataFixturesExtension.git",
+                "reference": "97ee73d6f085a1a52db70e4b2e675682670bd71d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vipsoft/DoctrineDataFixturesExtension/zipball/97ee73d6f085a1a52db70e4b2e675682670bd71d",
+                "reference": "97ee73d6f085a1a52db70e4b2e675682670bd71d",
+                "shasum": ""
+            },
+            "require": {
+                "behat/behat": "~3.0",
+                "behat/symfony2-extension": "~2.0",
+                "doctrine/data-fixtures": "~1.0",
+                "php": ">=5.3.6"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "~1.2",
+                "doctrine/orm": "~2.2,>=2.2.3",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "doctrine/migrations": "Uses DBAL to load versioned database schema and migration classes"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0.x-dev",
+                    "dev-2.5": "2.5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "VIPSoft\\DoctrineDataFixturesExtension": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anthon Pang",
+                    "email": "apang@softwaredevelopment.ca",
+                    "role": "developer"
+                }
+            ],
+            "description": "Doctrine data fixtures extension for Behat",
+            "homepage": "http://github.com/vipsoft/",
+            "keywords": [
+                "BDD",
+                "Behat",
+                "Data fixtures",
+                "doctrine"
+            ],
+            "time": "2017-01-24 16:56:56"
+        },
+        {
             "name": "webmozart/assert",
             "version": "1.2.0",
             "source": {
@@ -4535,7 +4581,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "morontt/doctrine-data-fixtures-extension": 20
+        "vipsoft/doctrine-data-fixtures-extension": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
