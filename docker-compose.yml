@@ -20,8 +20,6 @@ services:
                 HOST_UID: ${HOST_UID}
         volumes:
             - .:/var/www/html
-        ports:
-            - "80:80"
         links:
             - marmoset
         depends_on:
@@ -29,8 +27,6 @@ services:
 
     kangaroo:
         image: xelbot/phppgadmin
-        ports:
-            - "8090:80"
         links:
             - marmoset
         depends_on:

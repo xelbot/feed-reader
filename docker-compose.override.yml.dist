@@ -3,3 +3,6 @@ services:
     octopus:
         ports:
             - "8091:80"
+    kangaroo:
+        ports:
+            - "8090:80"
