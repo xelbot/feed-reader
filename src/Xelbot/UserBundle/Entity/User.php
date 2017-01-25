@@ -366,7 +366,7 @@ class User implements AdvancedUserInterface, \Serializable
      *
      * @return User
      */
-    public function addRole($role): User
+    public function addRole(string $role): User
     {
         $role = strtoupper($role);
         if ($role === static::ROLE_DEFAULT) {
@@ -375,6 +375,28 @@ class User implements AdvancedUserInterface, \Serializable
 
         if (!in_array($role, $this->roles, true)) {
             $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Deletes a role from a user.
+     *
+     * @param string $role
+     *
+     * @return User
+     */
+    public function deleteRole(string $role): User
+    {
+        $role = strtoupper($role);
+
+        if ($role === static::ROLE_DEFAULT) {
+            return $this;
+        }
+
+        if (($key = array_search($role, $this->roles, true)) !== false) {
+            unset($this->roles[$key]);
         }
 
         return $this;

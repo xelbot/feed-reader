@@ -36,14 +36,14 @@ class UserManager extends BaseManager
     /**
      * Creates a user and returns it.
      *
-     * @param $email
-     * @param $username
-     * @param $password
-     * @param $active
+     * @param string $email
+     * @param string $username
+     * @param string $password
+     * @param bool $active
      *
      * @return User
      */
-    public function createUser($email, $username, $password, $active): User
+    public function createUser(string $email, string $username, string $password, bool $active): User
     {
         $user = $this->create();
 
@@ -91,6 +91,32 @@ class UserManager extends BaseManager
     }
 
     /**
+     * Assigning a role to a user.
+     *
+     * @param User $user
+     * @param string $role
+     */
+    public function assignRole(User $user, string $role): void
+    {
+        $user->addRole($role);
+
+        $this->save($user);
+    }
+
+    /**
+     * Deletes a role from a user.
+     *
+     * @param User $user
+     * @param string $role
+     */
+    public function deleteRole(User $user, string $role): void
+    {
+        $user->deleteRole($role);
+
+        $this->save($user);
+    }
+
+    /**
      * Returns a collection with all user instances.
      *
      * @return array
@@ -107,7 +133,7 @@ class UserManager extends BaseManager
      *
      * @return User|null
      */
-    public function findUserByUserName($username): ?User
+    public function findUserByUserName(string $username): ?User
     {
         return $this->findUserBy(['username' => $username]);
     }
@@ -119,7 +145,7 @@ class UserManager extends BaseManager
      *
      * @return User|null
      */
-    public function findUserByConfirmationToken($token): ?User
+    public function findUserByConfirmationToken(string $token): ?User
     {
         return $this->findUserBy(['confirmationToken' => $token]);
     }
@@ -145,7 +171,7 @@ class UserManager extends BaseManager
      *
      * @return User
      */
-    public function findUserByUsernameOrThrowException($username): User
+    public function findUserByUsernameOrThrowException(string $username): User
     {
         $user = $this->findUserByUsername($username);
 
