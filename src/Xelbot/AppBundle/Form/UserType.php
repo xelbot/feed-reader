@@ -3,6 +3,7 @@
 namespace Xelbot\AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +17,7 @@ class UserType extends AbstractType
         $builder
             ->add('email')
             ->add('username')
-            ->add('enabled');
+            ->add('plainPassword', PasswordType::class, ['label' => 'Password', 'required' => false]);
     }
 
     /**

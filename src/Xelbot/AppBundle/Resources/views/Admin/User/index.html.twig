@@ -1,8 +1,10 @@
 {% extends '@App/Admin/base.html.twig' %}
 
 {% block content %}
-    <h1>Users list</h1>
-
+    <h1>Users</h1>
+    <p>
+        <a class="btn btn-success" href="{{ path('admin_user_new') }}">Create User</a>
+    </p>
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -38,10 +40,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_user_new') }}">Create a new user</a>
-        </li>
-    </ul>
 {% endblock %}

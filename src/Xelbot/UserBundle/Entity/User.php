@@ -27,14 +27,14 @@ class User implements AdvancedUserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Email cannot be blank.")
      * @Assert\Email()
      */
     protected $email;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Username cannot be blank.")
      */
     protected $username;
 
@@ -44,8 +44,8 @@ class User implements AdvancedUserInterface, \Serializable
     protected $enabled;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max=4096)
+     * @Assert\NotBlank(message="Password cannot be blank.", groups={"registration", "create"})
+     * @Assert\Length(max=4096, groups={"registration", "create"})
      */
     protected $plainPassword;
 

@@ -7,7 +7,7 @@
         <p>Create your personal account</p>
         <div class="row">
             <div class="col-lg-5">
-                {{ form_start(form) }}
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
                 {{ form_row(form.username) }}
                 {{ form_row(form.email) }}

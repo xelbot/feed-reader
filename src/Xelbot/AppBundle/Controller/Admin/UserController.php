@@ -45,14 +45,18 @@ class UserController extends Controller
      */
     public function newAction(Request $request)
     {
-        $user = new User();
-        $form = $this->createForm('Xelbot\UserBundle\Form\UserType', $user);
+        $userManager = $this->get('xelbot.user.user_manager');
+        $user = $userManager->create();
+        $form = $this->createForm('Xelbot\AppBundle\Form\UserType', $user, [
+            'validation_groups' => ['create', 'Default'],
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush($user);
+            $userManager->updateUser($user);
+
+            $this->addFlash('success', 'User has been created.');
 
             return $this->redirectToRoute('admin_user_show', ['id' => $user->getId()]);
         }
@@ -105,7 +109,9 @@ class UserController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_user_edit', ['id' => $user->getId()]);
+            $this->addFlash('success', 'User has been saved.');
+
+            return $this->redirectToRoute('admin_user_index', ['id' => $user->getId()]);
         }
 
         return [
@@ -128,13 +134,14 @@ class UserController extends Controller
      */
     public function deleteAction(Request $request, User $user)
     {
+        $userManager = $this->get('xelbot.user.user_manager');
         $form = $this->createDeleteForm($user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($user);
-            $em->flush($user);
+            $userManager->delete($user);
+
+            $this->addFlash('success', 'User has been deleted.');
         }
 
         return $this->redirectToRoute('admin_user_index');
