@@ -2,12 +2,12 @@
 
 namespace Xelbot\AppBundle\Controller\Admin;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Xelbot\UserBundle\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Xelbot\UserBundle\Entity\User;
 
 /**
  * User controller.
@@ -38,7 +38,9 @@ class UserController extends Controller
      * @Route("/new", name="admin_user_new")
      * @Method({"GET", "POST"})
      * @Template()
+     *
      * @param Request $request
+     *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function newAction(Request $request)
@@ -66,7 +68,9 @@ class UserController extends Controller
      *
      * @Route("/{id}", name="admin_user_show")
      * @Method("GET")
+     *
      * @param User $user
+     *
      * @return array
      * @Template()
      */
@@ -86,8 +90,10 @@ class UserController extends Controller
      * @Route("/{id}/edit", name="admin_user_edit")
      * @Method({"GET", "POST"})
      * @Template()
+     *
      * @param Request $request
      * @param User $user
+     *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function editAction(Request $request, User $user)
@@ -114,8 +120,10 @@ class UserController extends Controller
      *
      * @Route("/{id}", name="admin_user_delete")
      * @Method("DELETE")
+     *
      * @param Request $request
      * @param User $user
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, User $user)
