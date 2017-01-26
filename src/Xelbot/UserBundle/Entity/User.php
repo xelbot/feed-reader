@@ -2,7 +2,7 @@
 
 namespace Xelbot\UserBundle\Entity;
 
-use DateTime;
+use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -58,9 +58,9 @@ class User implements AdvancedUserInterface, \Serializable
     protected $password;
 
     /**
-     * @var DateTime
+     * @var Carbon
      *
-     * @ORM\Column(name="last_login", type="datetime", nullable=true)
+     * @ORM\Column(name="last_login", type="carbondatetime", nullable=true)
      */
     protected $lastLogin;
 
@@ -72,9 +72,9 @@ class User implements AdvancedUserInterface, \Serializable
     protected $confirmationToken;
 
     /**
-     * @var DateTime
+     * @var Carbon
      *
-     * @ORM\Column(name="password_requested_at", type="datetime", nullable=true)
+     * @ORM\Column(name="password_requested_at", type="carbondatetime", nullable=true)
      */
     protected $passwordRequestedAt;
 
@@ -84,9 +84,9 @@ class User implements AdvancedUserInterface, \Serializable
     protected $roles;
 
     /**
-     * @var DateTime
+     * @var Carbon
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="created_at", type="carbondatetime")
      */
     protected $createdAt;
 
@@ -97,7 +97,7 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->enabled = false;
         $this->roles = [];
-        $this->createdAt = new DateTime();
+        $this->createdAt = new Carbon();
     }
 
     /**
@@ -234,11 +234,11 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Set lastLogin
      *
-     * @param DateTime $lastLogin
+     * @param Carbon $lastLogin
      *
      * @return User
      */
-    public function setLastLogin($lastLogin): User
+    public function setLastLogin(Carbon $lastLogin): User
     {
         $this->lastLogin = $lastLogin;
 
@@ -248,9 +248,9 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Get lastLogin
      *
-     * @return DateTime
+     * @return Carbon
      */
-    public function getLastLogin(): ?DateTime
+    public function getLastLogin(): ?Carbon
     {
         return $this->lastLogin;
     }
@@ -282,11 +282,11 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Set passwordRequestedAt
      *
-     * @param DateTime $passwordRequestedAt
+     * @param Carbon $passwordRequestedAt
      *
      * @return User
      */
-    public function setPasswordRequestedAt($passwordRequestedAt): User
+    public function setPasswordRequestedAt(Carbon $passwordRequestedAt): User
     {
         $this->passwordRequestedAt = $passwordRequestedAt;
 
@@ -296,9 +296,9 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Get passwordRequestedAt
      *
-     * @return DateTime
+     * @return Carbon
      */
-    public function getPasswordRequestedAt(): ?DateTime
+    public function getPasswordRequestedAt(): ?Carbon
     {
         return $this->passwordRequestedAt;
     }
@@ -450,11 +450,11 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Set createdAt
      *
-     * @param DateTime $createdAt
+     * @param Carbon $createdAt
      *
      * @return User
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(Carbon $createdAt)
     {
         $this->createdAt = $createdAt;
 
@@ -464,9 +464,9 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Get createdAt
      *
-     * @return DateTime
+     * @return Carbon
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): Carbon
     {
         return $this->createdAt;
     }

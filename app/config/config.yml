@@ -62,6 +62,9 @@ doctrine:
         password: "%database_password%"
         server_version: 9.6
         charset:  UTF8
+        types:
+            carbondatetime: DoctrineExtensions\Types\CarbonDateTimeType
+            carbondate: DoctrineExtensions\Types\CarbonDateType
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
