@@ -36,6 +36,7 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "nesbot/carbon": "~1.22",
+        "zendframework/zend-feed": "~2.7",
         "beberlei/DoctrineExtensions": "~1.0",
         "doctrine/doctrine-migrations-bundle": "^1.0"
     },
