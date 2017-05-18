@@ -12,3 +12,6 @@ services:
     xelbot.app.base_manager:
         class: Xelbot\AppBundle\Service\BaseManager
         arguments: ["@doctrine.orm.entity_manager"]
+
+    xelbot.app.doctrine_naming_strategy.plural:
+        class: Xelbot\AppBundle\Doctrine\PluralUnderscoreNamingStrategy

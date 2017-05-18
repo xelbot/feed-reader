@@ -2,6 +2,7 @@
 
 namespace Xelbot\UserBundle\EventListener;
 
+use Carbon\Carbon;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
@@ -41,7 +42,7 @@ class LoginListener implements EventSubscriberInterface
         $user = $event->getAuthenticationToken()->getUser();
 
         if ($user instanceof User) {
-            $user->setLastLogin(new \DateTime());
+            $user->setLastLogin(new Carbon());
 
             $this->em->persist($user);
             $this->em->flush();
