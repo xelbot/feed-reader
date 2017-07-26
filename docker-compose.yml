@@ -1,6 +1,6 @@
 version: '2'
 services:
-    marmoset:
+    postgres:
         build:
             context: ./data/docker/db
             args:
@@ -13,7 +13,7 @@ services:
             POSTGRES_DB: freader
             PGDATA: /var/lib/postgresql/data/pgdata
 
-    octopus:
+    webapp:
         build:
             context: ./data/docker/web
             args:
@@ -21,16 +21,16 @@ services:
         volumes:
             - .:/var/www/html
         links:
-            - marmoset
+            - postgres
         depends_on:
-            - marmoset
+            - postgres
 
-    kangaroo:
+    phppgadmin:
         image: xelbot/phppgadmin
         links:
-            - marmoset
+            - postgres
         depends_on:
-            - marmoset
+            - postgres
         environment:
-            POSTGRES_HOST: marmoset
+            POSTGRES_HOST: postgres
             POSTGRES_DEFAULTDB: freader
